@@ -16,12 +16,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import org.dginz.vkmusic.vkapi.AudioApi;
+import org.dginz.vkmusic.vkapi.audio.AudioApi;
 import org.dginz.vkmusic.vkapi.VkApi;
+import org.dginz.vkmusic.vkapi.audio.Track;
+import org.dginz.vkmusic.vkapi.audio.TrackList;
 
 /**
  *
- * @author Dmitry Ginzburg
+ * @author Dmitry Ginzburg <dmitry.a.ginzburg@gmail.com>
  */
 public class VkMusicDownloader extends Application {
 
@@ -63,7 +65,7 @@ public class VkMusicDownloader extends Application {
             }
         });
         Label label = new Label(PLEASE_AUTHORIZE);
-        VBox vbox = new VBox(8);
+        final VBox vbox = new VBox(8);
         vbox.getChildren().addAll(label, view);
         primaryStage.setScene(new Scene(vbox));
         primaryStage.show();
@@ -76,7 +78,10 @@ public class VkMusicDownloader extends Application {
                 } else {
                     try {
                         AudioApi api = new AudioApi (VK_APP_ID, formData);
-                        System.out.println (api.getAllMyAudioJson());
+                        TrackList tracks = api.getTrackList();
+                        for (Track track: tracks.getTrackList()) {
+                            System.out.println (track);
+                        }
                     } catch (IOException ex) {
                         Logger.getLogger(VkMusicDownloader.class.getName()).log(Level.SEVERE, null, ex);
                     }
