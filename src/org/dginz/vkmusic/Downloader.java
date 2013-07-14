@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -26,27 +25,37 @@ public class Downloader implements Runnable {
     List<Track> trackList = null;
     ProgressBar current = null;
     ProgressBar global = null;
-    File dir = new File (".");
-    
+    File dir = new File(".");
+    private boolean running = false;
+
     public Downloader(TrackList trackList, ProgressBar current, ProgressBar global, File dir) {
         this.trackList = trackList.getTrackList();
         this.current = current;
         this.global = global;
         this.dir = dir;
     }
-    
+
     public Downloader(TrackList trackList, ProgressBar current, ProgressBar global) {
         this.trackList = trackList.getTrackList();
         this.current = current;
         this.global = global;
     }
-    
-    public void setDir (File dir) {
+
+    public void setDir(File dir) {
         this.dir = dir;
+    }
+
+    public void stop() {
+        running = false;
+    }
+    
+    public boolean isRunning() {
+        return running;
     }
 
     @Override
     public void run() {
+        running = true;
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -55,7 +64,7 @@ public class Downloader implements Runnable {
             }
         });
         int n = trackList.size();
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n && running; ++i) {
             Track track = trackList.get(i);
             try {
                 URLConnection conn = new URL(track.getUrl()).openConnection();
@@ -89,6 +98,7 @@ public class Downloader implements Runnable {
                 Logger.getLogger(Downloader.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        running = false;
     }
 
     private int fileSize(URLConnection conn) {
