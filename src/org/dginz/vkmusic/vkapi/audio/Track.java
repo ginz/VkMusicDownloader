@@ -12,8 +12,8 @@ public class Track {
     private int duration, genre;
 
     public Track(JSONObject jsonObject) {
-        artist = jsonObject.get("artist").toString();
-        title = jsonObject.get("title").toString();
+        artist = jsonObject.get("artist").toString().replace("/", ",").replace("\\", ",");
+        title = jsonObject.get("title").toString().replace("/", ",").replace("\\", ",");
         url = jsonObject.get("url").toString();
         duration = Integer.parseInt(jsonObject.get("duration").toString());
         try {
@@ -37,6 +37,6 @@ public class Track {
 
     @Override
     public String toString() {
-        return artist + " - " + title + "(" + duration + " seconds)";
+        return artist + " - " + title + " (" + duration + " seconds)";
     }
 }
