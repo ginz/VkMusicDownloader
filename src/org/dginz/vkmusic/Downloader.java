@@ -25,30 +25,34 @@ public class Downloader implements Runnable {
     List<Track> trackList = null;
     ProgressBar current = null;
     ProgressBar global = null;
-    File dir = new File(".");
+    File dir = null;
+    boolean artistDir = false;
     private boolean running = false;
 
-    public Downloader(TrackList trackList, ProgressBar current, ProgressBar global, File dir) {
+    public Downloader(TrackList trackList, ProgressBar current, ProgressBar global, File dir, boolean artistDir) {
         this.trackList = trackList.getTrackList();
         this.current = current;
         this.global = global;
         this.dir = dir;
+        this.artistDir = artistDir;
     }
 
     public Downloader(TrackList trackList, ProgressBar current, ProgressBar global) {
-        this.trackList = trackList.getTrackList();
-        this.current = current;
-        this.global = global;
+        this(trackList, current, global, new File("."), false);
     }
 
     public void setDir(File dir) {
         this.dir = dir;
     }
 
+    public void setArtistDir(boolean artistDir) {
+        this.artistDir = artistDir;
+    }
+
     public void stop() {
         running = false;
     }
-    
+
     public boolean isRunning() {
         return running;
     }
@@ -56,6 +60,11 @@ public class Downloader implements Runnable {
     @Override
     public void run() {
         running = true;
+        try {
+            System.err.println("Running downloader with artistDir=" + artistDir + ", dir=" + dir.getCanonicalPath());
+        } catch (IOException ex) {
+            Logger.getLogger(Downloader.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -69,7 +78,23 @@ public class Downloader implements Runnable {
             try {
                 URLConnection conn = new URL(track.getUrl()).openConnection();
                 InputStream is = conn.getInputStream();
-                OutputStream os = new FileOutputStream(new File(dir.getAbsolutePath() + File.separator + track.getArtist() + " - " + track.getTitle() + ".mp3"));
+                File path = null;
+                if (artistDir) {
+                    File artistDirectory = new File(dir.getAbsolutePath() + File.separator + track.getArtistDirName());
+                    if (artistDirectory.exists()) {
+                        if (!artistDirectory.isDirectory()) {
+                            System.err.println("Can't create artist directory, file exists and it's not direcotory: " + artistDirectory.getCanonicalPath());
+                        }
+                    } else {
+                        if (!artistDirectory.mkdir()) {
+                            System.err.println("Can't create artist directory: " + artistDirectory.getCanonicalPath());
+                        }
+                    }
+                    path = new File(artistDirectory.getAbsolutePath() + File.separator + track.getTitle() + ".mp3");
+                } else {
+                    path = new File(dir.getAbsolutePath() + File.separator + track.getArtist() + " - " + track.getTitle() + ".mp3");
+                }
+                OutputStream os = new FileOutputStream(path);
                 int mp3Size = fileSize(conn);
                 byte[] buffer = new byte[4096];
                 int len, sumlen = 0;

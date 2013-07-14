@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -114,30 +115,27 @@ public class VkMusicDownloader extends Application {
                         downloadLayout.getChildren().add(downloadAll);
                         downloadLayout.getChildren().add(cancel);
                         cancel.setVisible(false);
-                        mainLayout.getChildren().addAll(browseLayout, downloadLayout, list);
                         final ProgressBar current = new ProgressBar();
                         final ProgressBar global = new ProgressBar();
+                        current.setPrefWidth(primaryStage.getWidth());
+                        global.setPrefWidth(primaryStage.getWidth());
                         current.setVisible(false);
                         global.setVisible(false);
-                        System.out.println(dest.getText());
-                        final Downloader downloader = new Downloader(tracks, current, global, new File(dest.getText()));
+                        final CheckBox artistDir = new CheckBox("Put every artist in it's directory");
+                        mainLayout.getChildren().addAll(browseLayout, artistDir, downloadLayout,
+                                current, global, list);
+                        final Downloader downloader = new Downloader(tracks, current, global);
                         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent t) {
                                 downloader.stop();
                             }
                         });
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                mainLayout.getChildren().add(2, current);
-                                mainLayout.getChildren().add(3, global);
-                            }
-                        });
                         downloadAll.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent t) {
                                 downloader.setDir(new File(dest.getText()));
+                                downloader.setArtistDir(artistDir.isSelected());
                                 new Thread(downloader).start();
                             }
                         });
@@ -217,22 +215,19 @@ public class VkMusicDownloader extends Application {
         @Override
         public void run() {
             boolean running = downloader.isRunning();
-            System.out.println("Initial state: " + running);
             ReadOnlyBooleanProperty stageShowing = primaryStage.showingProperty();
             while (stageShowing.getValue()) {
-                System.out.println(primaryStage.isShowing());
                 while (running == downloader.isRunning() && stageShowing.getValue());
-                System.out.println("State changed: " + running);
                 running = downloader.isRunning();
                 if (running) {
-                    setVisible (cancelButton, true);
-                    setVisible (downloadButton, false);
-                    setVisible (current, true);
-                    setVisible (global, true);
+                    setVisible(cancelButton, true);
+                    setVisible(downloadButton, false);
+                    setVisible(current, true);
+                    setVisible(global, true);
                 } else {
-                    setVisible (cancelButton, false);
-                    setVisible (downloadButton, true);
-                    setVisible (current, false);
+                    setVisible(cancelButton, false);
+                    setVisible(downloadButton, true);
+                    setVisible(current, false);
                 }
             }
         }
