@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dmitry Ginzburg <dmitry.a.ginzburg@gmail.com>
  */
+
 public class Track {
 
     private String artist, title, url;
@@ -24,21 +25,6 @@ public class Track {
 
     public String getArtist() {
         return artist;
-    }
-
-    public String getArtistDirName() {
-        String[] parts = artist.split(" ");
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < parts.length - 1; ++i) {
-            result.append(toProperCase(parts[i] + " "));
-        }
-        result.append(toProperCase(parts[parts.length - 1]));
-        return result.toString();
-    }
-
-    private static String toProperCase(String s) {
-        return s.substring(0, 1).toUpperCase()
-                + s.substring(1).toLowerCase();
     }
 
     public String getTitle() {

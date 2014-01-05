@@ -9,18 +9,17 @@ import org.json.simple.JSONObject;
  *
  * @author Dmitry Ginzburg <dmitry.a.ginzburg@gmail.com>
  */
-public class TrackList {
+public class TrackList extends ArrayList <Track>{
 
-    List<Track> trackList = null;
+    //List<Track> trackList = null;
 
     public TrackList(JSONArray jsonArray) {
-        trackList = new ArrayList<>();
         for (Object trackObject : jsonArray) {
-            trackList.add(new Track((JSONObject)trackObject));
+            this.add(new Track((JSONObject)trackObject));
         }
     }
 
     public List<Track> getTrackList() {
-        return trackList;
+        return this;
     }
 }

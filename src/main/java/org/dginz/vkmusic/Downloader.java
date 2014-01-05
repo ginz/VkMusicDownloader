@@ -80,7 +80,7 @@ public class Downloader implements Runnable {
                 InputStream is = conn.getInputStream();
                 File path = null;
                 if (artistDir) {
-                    File artistDirectory = new File(dir.getAbsolutePath() + File.separator + track.getArtistDirName());
+                    File artistDirectory = new File(dir.getAbsolutePath() + File.separator + track.getArtist());
                     if (artistDirectory.exists()) {
                         if (!artistDirectory.isDirectory()) {
                             System.err.println("Can't create artist directory, file exists and it's not direcotory: " + artistDirectory.getCanonicalPath());
