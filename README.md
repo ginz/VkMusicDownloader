@@ -10,10 +10,16 @@ This softwares let's you easily download audio tracks from your Vk profile in fo
 
 ## Executing
 
-For now, there's no deploy on my side, so you should do it yourselt.
+There's 2 ways to use this tool:
 
-1. Set up [ant](http://ant.apache.org/) and [JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) of version not lower than 7u21 (or any java7 with javafx cobundled)
-2. Run `ant` to build project and run `java -jar dist/VkMusicDownloader.jar` to start it. Or you just can start it with one command `ant jfxsa-run`
+1.  Download the latest built version from [my build-server](http://jenkins.dginz.org/job/VkMusicDownloader/lastSuccessfulBuild/artifact/build/distributions/VkMusicDownloader.zip) and start bin/VkMusicDownloader(.bat)
+
+    You must have [JRE8](https://jdk8.java.net/download.html) installed
+2.  Checkout project with `git clone https://github.com/ginz/VkMusicDownloader.git`
+
+    Install [gradle](http://gradle.org), [JDK8](https://jdk8.java.net/download.html)
+    Run `gradle run` to run tool or `gradle jar` to deploy it as jar
+
 
 ## Security
 
