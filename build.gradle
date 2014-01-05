@@ -2,6 +2,7 @@ apply plugin:'java'
 apply plugin:'application'
 
 mainClassName = "org.dginz.vkmusic.VkMusicDownloader"
+jfxrtJarPath = "${System.properties.'java.home'}/lib/jfxrt.jar"
 
 repositories {
     mavenCentral()
@@ -9,6 +10,7 @@ repositories {
 
 dependencies {
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile files (jfxrtJarPath)
 }
 
 jar {

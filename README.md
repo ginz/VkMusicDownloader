@@ -1,7 +1,7 @@
 VkMusicDownloader
 =================
 
-Graphic downloader for music in Vk profile (currenlty only yours)
+Graphic downloader for music in Vk profile (currently only yours)
 
 
 ## Puproses
@@ -14,12 +14,12 @@ There's 2 ways to use this tool:
 
 1.  Download the latest built version from [my build-server](http://jenkins.dginz.org/job/VkMusicDownloader/lastSuccessfulBuild/artifact/build/distributions/VkMusicDownloader.zip) and start bin/VkMusicDownloader(.bat)
 
-    You must have [JRE8](https://jdk8.java.net/download.html) installed
+    You must have [Oracle Java of version at least 7u15](http://java.com/en/download/manual.jsp) installed
 2.  Checkout project with `git clone https://github.com/ginz/VkMusicDownloader.git`
 
-    Install [gradle](http://gradle.org), [JDK8](https://jdk8.java.net/download.html)
+    Install [gradle](http://gradle.org), [JDK of version at least 7u15](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 
-    Run `gradle run` to run tool or `gradle jar` to deploy it as jar
+    Run `gradle run` to run tool, `gradle jar` to deploy it as jar or `gradle distZip` to deploy it as zip (like the version on build-server)
 
 
 ## Security

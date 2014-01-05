@@ -232,7 +232,7 @@ public class VkMusicDownloader extends Application {
             }
         }
 
-        public void setVisible(Node node, boolean visible) {
+        public void setVisible(final Node node, final boolean visible) {
             if (node != null) {
                 Platform.runLater(new Runnable() {
                     @Override
