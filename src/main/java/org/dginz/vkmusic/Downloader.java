@@ -30,7 +30,7 @@ public class Downloader implements Runnable {
     private boolean running = false;
 
     public Downloader(TrackList trackList, ProgressBar current, ProgressBar global, File dir, boolean artistDir) {
-        this.trackList = trackList.getTrackList();
+        this.trackList = trackList;
         this.current = current;
         this.global = global;
         this.dir = dir;

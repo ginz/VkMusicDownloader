@@ -18,8 +18,4 @@ public class TrackList extends ArrayList <Track>{
             this.add(new Track((JSONObject)trackObject));
         }
     }
-
-    public List<Track> getTrackList() {
-        return this;
-    }
 }

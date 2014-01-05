@@ -90,7 +90,7 @@ public class VkMusicDownloader extends Application {
                         AudioApi api = new AudioApi(VK_APP_ID, formData);
                         final TrackList tracks = api.getTrackList();
                         final ListView<Track> list = new ListView<>();
-                        ObservableList<Track> items = FXCollections.observableArrayList(tracks.getTrackList());
+                        ObservableList<Track> items = FXCollections.observableArrayList(tracks);
                         list.setItems(items);
                         Label destLabel = new Label("Choose destination directory: ");
                         final TextField dest = new TextField();
