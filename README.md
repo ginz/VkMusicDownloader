@@ -6,7 +6,7 @@ Graphic downloader for music in Vk profile (currenlty only yours)
 
 ## Puproses
 
-This softwares let's you easily download audio tracks from your Vk profile in format you prefer
+This software let's you easily download audio tracks from your Vk profile in format you prefer
 
 ## Executing
 
