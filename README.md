@@ -18,6 +18,7 @@ There's 2 ways to use this tool:
 2.  Checkout project with `git clone https://github.com/ginz/VkMusicDownloader.git`
 
     Install [gradle](http://gradle.org), [JDK8](https://jdk8.java.net/download.html)
+
     Run `gradle run` to run tool or `gradle jar` to deploy it as jar
 
 
