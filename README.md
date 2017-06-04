@@ -1,3 +1,6 @@
+# The project is discontinued since VK Audio API is not supported anymore. You can try and use the new project: https://github.com/ginz/VkMusicDownloader2
+
+
 VkMusicDownloader
 =================
 
